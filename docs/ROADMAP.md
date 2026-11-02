@@ -16,7 +16,7 @@ Each milestone: pre-implementation quiz → decision gates → build on a branch
 ## M0 checklist
 - [x] Create `CLAUDE.md`, `docs/DECISIONS.md`, `docs/HLD.md`, `docs/LLD.md`, `docs/ROADMAP.md`, `docs/LEARNING.md`
 - [ ] M0 pre-implementation quiz
-- [ ] D-0a target domain
+- [x] D-0a target domain → CCTV primary, lectures added in M3
 - [ ] D-0b compute
 - [ ] D-0c Python version + package manager
 - [ ] D-12 hardware budget

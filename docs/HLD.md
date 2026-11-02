@@ -56,7 +56,7 @@ Status: **proposed** (from kickoff, 2026-11-02). Items marked **[D-x]** are open
 - **Hardware awareness:** must run on the user's hardware. **[D-12]** Observed: RTX 3050 Laptop 6 GB VRAM, 15 GB RAM, 20 CPU threads.
 
 ## 5. Project-level decisions (M0)
-- **[D-0a]** Target footage domain for the first version (CCTV, lectures, dashcam, or mixed).
+- **[D-0a] ✅** Target domain: **CCTV primary; 1–2 lecture videos added in M3** for speech queries.
 - **[D-0b]** Compute: local GPU, CPU only, Colab, or cloud.
 - **[D-0c]** Python version and package manager.
 - **[D-12]** Hardware budget.
