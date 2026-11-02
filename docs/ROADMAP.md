@@ -19,7 +19,7 @@ Each milestone: pre-implementation quiz → decision gates → build on a branch
 - [x] D-0a target domain → CCTV primary, lectures added in M3
 - [x] D-0b compute → laptop GPU only (RTX 3050 6 GB); cloud burst possible later
 - [x] D-0c → uv + Python 3.12
-- [ ] D-12 hardware budget
+- [x] D-12 → moderate: ~40 GB disk, ≤5 GB VRAM (one model at a time), ≤6 GB RAM, indexing ≤1 h per hour of CCTV, ~5–10 h footage
 - [ ] Agree repo layout
 - [x] `git init`, `.gitignore`, first commit on `main` (pushed)
 - [ ] Environment + tooling (lint/format/test)

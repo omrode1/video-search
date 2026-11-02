@@ -8,7 +8,7 @@ Every gated decision gets an entry. Statuses: `proposed` | `accepted` | `superse
 | D-0a | Target footage domain for v1 | M0 | accepted |
 | D-0b | Compute environment | M0 | accepted |
 | D-0c | Python version and package manager | M0 | accepted |
-| D-12 | Hardware budget / what compute is available | M0 | open |
+| D-12 | Hardware budget / what compute is available | M0 | accepted |
 | D-LAYOUT | Repository layout | M0 | open |
 | D-1 | Segmentation strategy | M2 | open |
 | D-2 | Sampling rate and motion threshold | M1/M2 | open |
@@ -23,6 +23,20 @@ Every gated decision gets an entry. Statuses: `proposed` | `accepted` | `superse
 | D-11 | Eval query set design and size | M5 | open |
 
 ---
+
+## D-12: Hardware budget
+- Date: 2026-11-02
+- Milestone: M0
+- Status: accepted
+- Context: Budgets set what "good enough" means for model sizes, footage volume, and frame-skipping aggressiveness. Machine: RTX 3050 Laptop 6 GB VRAM, 15 GB RAM, 20 threads, ~90 GB free disk (shared HF cache already 16 GB).
+- Options considered:
+  1. Moderate — ~40 GB disk, ≤5 GB VRAM one model at a time, ≤6 GB RAM/process, indexing ≤1 h per hour of CCTV, ~5–10 h footage
+  2. Tight — ~15 GB, ≤4 GB VRAM, ≤30 min/h, ~2 h footage; eval set too small to be trustworthy
+  3. Generous — ~70 GB, ≤5.5 GB VRAM, no time limit, 20 h+; labeling is the real bottleneck, hides slow components
+- Claude's recommendation: Option 1.
+- Decision (by me): Option 1 — moderate.
+- Rationale: Accepted the recommendation.
+- Consequences: Pipeline runs stage by stage and frees VRAM between stages. Indexing-time budget (≤1 h per hour of CCTV) is a target for M2 motion gating. Data directory is configurable, never hardcoded. Budgets are numbers in docs/config, easy to revise.
 
 ## D-0c: Python version and package manager
 - Date: 2026-11-02

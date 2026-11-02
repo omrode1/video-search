@@ -36,6 +36,12 @@ Natural-language video search: index long videos (CCTV, lectures, dashcam) so a 
 - CPU: 20 threads; RAM: 15 GB
 - Python 3.12.3 system; `uv` 0.12.7 installed
 
+## Accepted decisions (summary; details in docs/DECISIONS.md)
+- D-0a: CCTV primary; 1–2 lecture videos added in M3
+- D-0b: laptop GPU only for now; device configurable
+- D-0c: uv + Python 3.12
+- D-12: ~40 GB disk, ≤5 GB VRAM one model at a time, ≤6 GB RAM, indexing ≤1 h per hour of CCTV
+
 ## Conventions
 - Package manager: **uv**, Python **3.12** (D-0c). Layout, lint/format, test runner: TBD in M0.
 
