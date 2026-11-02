@@ -3,9 +3,9 @@
 Natural-language video search: index long videos (CCTV, lectures, dashcam) so a text query returns timestamped segments. Combines visual embeddings, VLM captions, ASR transcripts, and keyword search, fused with RRF and optionally re-ranked. An eval harness backs every design choice with numbers.
 
 ## Current status
-- **Milestone:** M0 — Setup (no model code)
-- **Phase:** docs created; pre-implementation quiz pending; then decisions D-0a, D-0b, D-0c, D-12
-- **Git:** `main` pushed to `origin` (`git@github.com:omrode1/video-search.git`). Repo-local config: author `omrode1 <omrode.34@gmail.com>`, `core.sshCommand` uses `~/.ssh/id_ed25519_personal`. `.claude/` is gitignored. Working branch: `m0-setup`.
+- **Milestone:** M0 done (merged 2026-11-02). **Next: M1 — MVP search** (branch `m1-mvp-search`), starting with its pre-implementation quiz.
+- **Git:** `origin` = `git@github.com:omrode1/video-search.git`. Repo-local config: author `omrode1 <omrode.34@gmail.com>`, `core.sshCommand` uses `~/.ssh/id_ed25519_personal`. `.claude/` is gitignored. Merges into `main` use `--no-ff`.
+- **Teaching note:** M0 quizzes showed gaps on tool roles (uv / ruff / mypy / pytest / pre-commit). Revisit in the M1 pre-implementation quiz.
 
 ## Working rules (condensed)
 1. **Roles:** the user is the architect and decides; Claude is the engineer and teacher. Understanding matters more than speed.

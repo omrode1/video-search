@@ -4,8 +4,8 @@ Each milestone: pre-implementation quiz → decision gates → build on a branch
 
 | Milestone | Scope | Branch | Status |
 |---|---|---|---|
-| **M0 — Setup** | Docs + `CLAUDE.md`, git init, decide D-0a/D-0b/D-0c/D-12, agree repo layout, environment + tooling. No model code. | `m0-setup` | **in progress** |
-| M1 — MVP search | Fixed 1 FPS sampling, one image embedder, vector index (D-7), CLI search over one video, minimal UI that seeks to the timestamp. | `m1-mvp-search` | todo |
+| **M0 — Setup** | Docs + `CLAUDE.md`, git init, decide D-0a/D-0b/D-0c/D-12, agree repo layout, environment + tooling. No model code. | `m0-setup` | done (2026-11-02) |
+| M1 — MVP search | Fixed 1 FPS sampling, one image embedder, vector index (D-7), CLI search over one video, minimal UI that seeks to the timestamp. | `m1-mvp-search` | **next** |
 | M2 — Segmentation & motion gating | Segmenters, motion-gated sampling, segment pooling, caching layer. | `m2-segmentation` | todo |
 | M3 — Captions & transcripts | VLM captioner, Whisper, text embeddings, keyword index. | `m3-captions-asr` | todo |
 | M4 — Hybrid retrieval | Multiple retrievers, RRF, adjacent-segment merging, optional re-ranker. | `m4-hybrid` | todo |
@@ -23,7 +23,7 @@ Each milestone: pre-implementation quiz → decision gates → build on a branch
 - [x] Agree repo layout → D-LAYOUT option 2 (kickoff layout + `core/`, eval logic in package, lazy folders)
 - [x] `git init`, `.gitignore`, first commit on `main` (pushed)
 - [x] Environment + tooling → D-TOOLING, D-ENV (uv sync, ruff, mypy, pytest, pre-commit)
-- [x] M0 pre-merge quiz (logged) → awaiting "approve merge"
+- [x] M0 pre-merge quiz → "approve merge" given 2026-11-02
 
 ## Open questions
 - Should a tiny eval set exist from M1 onward (rather than waiting for M5), so every milestone has a number to beat? (raise before M1)
