@@ -11,6 +11,7 @@ Every gated decision gets an entry. Statuses: `proposed` | `accepted` | `superse
 | D-12 | Hardware budget / what compute is available | M0 | accepted |
 | D-LAYOUT | Repository layout | M0 | accepted |
 | D-TOOLING | Lint/format, type checking, tests | M0 | accepted |
+| D-ENV | Isolate project from ROS PYTHONPATH | M0 | accepted |
 | D-1 | Segmentation strategy | M2 | open |
 | D-2 | Sampling rate and motion threshold | M1/M2 | open |
 | D-3 | Visual embedding model, size, pooling | M1 | open |
@@ -24,6 +25,20 @@ Every gated decision gets an entry. Statuses: `proposed` | `accepted` | `superse
 | D-11 | Eval query set design and size | M5 | open |
 
 ---
+
+## D-ENV: Isolate the project from ROS's PYTHONPATH
+- Date: 2026-11-02
+- Milestone: M0
+- Status: accepted
+- Context: `~/.bashrc` sources `/opt/ros/jazzy/setup.bash` in every shell, setting `PYTHONPATH=/opt/ros/jazzy/lib/python3.12/site-packages`. Our venv is also Python 3.12, so ROS packages leak in: pytest auto-loaded 7 ROS plugins and crashed (`No module named 'lark'`). ROS packages could also shadow ours (reproducibility risk).
+- Options considered:
+  1. Source ROS on demand via an alias instead of in every shell — fixes root cause / changes ROS workflow by one word / user edits ~/.bashrc
+  2. direnv `.envrc` that unsets PYTHONPATH in this folder — automatic / needs direnv + hook, IDEs may still leak
+  3. Disable ROS pytest plugins in pytest config — in-repo / symptom only, fragile
+- Claude's recommendation: Option 1 if ROS is used occasionally, Option 2 if daily; avoid 3.
+- Decision (by me): Option 1.
+- Rationale: Accepted the recommendation.
+- Consequences: Project commands must run in a shell without ROS sourced. Verified: `env -u PYTHONPATH uv run pytest` passes. Reverse by restoring the `source` line in ~/.bashrc.
 
 ## D-TOOLING: Lint/format, type checking, tests
 - Date: 2026-11-02

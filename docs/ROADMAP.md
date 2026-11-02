@@ -22,7 +22,7 @@ Each milestone: pre-implementation quiz → decision gates → build on a branch
 - [x] D-12 → moderate: ~40 GB disk, ≤5 GB VRAM (one model at a time), ≤6 GB RAM, indexing ≤1 h per hour of CCTV, ~5–10 h footage
 - [x] Agree repo layout → D-LAYOUT option 2 (kickoff layout + `core/`, eval logic in package, lazy folders)
 - [x] `git init`, `.gitignore`, first commit on `main` (pushed)
-- [ ] Environment + tooling (lint/format/test)
+- [x] Environment + tooling → D-TOOLING, D-ENV (uv sync, ruff, mypy, pytest, pre-commit)
 - [ ] M0 pre-merge quiz → "approve merge"
 
 ## Open questions

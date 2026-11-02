@@ -41,10 +41,22 @@ Natural-language video search: index long videos (CCTV, lectures, dashcam) so a 
 - D-0b: laptop GPU only for now; device configurable
 - D-0c: uv + Python 3.12
 - D-12: ~40 GB disk, ≤5 GB VRAM one model at a time, ≤6 GB RAM, indexing ≤1 h per hour of CCTV
+- D-TOOLING: ruff + gradual mypy + pytest + pre-commit (ruff only)
+- D-ENV: ROS sourced on demand (alias), not in every shell
 - D-LAYOUT: kickoff layout + `src/vsearch/core/`; stages import only from `core`; eval logic in `src/vsearch/eval/`; folders created per milestone
 
 ## Conventions
-- Package manager: **uv**, Python **3.12** (D-0c). Layout: see `docs/LLD.md` §1 (D-LAYOUT). Lint/format, test runner: TBD in M0.
+- Package manager: **uv**, Python **3.12** (D-0c). Layout: see `docs/LLD.md` §1 (D-LAYOUT). Tooling (D-TOOLING): ruff (lint+format, line length 100), mypy (strict on `vsearch.core.*`, lenient elsewhere), pytest (markers: `gpu`, `slow`), pre-commit runs ruff only. Runtime deps are added only in the milestone that needs them. PyTorch comes from the `pytorch-cu130` index.
 
 ## How to run
-- Nothing to run yet.
+**Prerequisite (D-ENV):** use a shell where ROS is *not* sourced (`echo $PYTHONPATH` should be empty). ROS is loaded on demand with the `ros` alias.
+
+```bash
+uv sync                      # create/update .venv from uv.lock
+uv run pytest                # tests
+uv run ruff check --fix      # lint
+uv run ruff format           # format
+uv run mypy                  # type check (strict on vsearch.core)
+uv run pre-commit install    # once per clone; runs ruff on every commit
+```
+Before merging a branch: `uv run ruff check && uv run ruff format --check && uv run mypy && uv run pytest`.
