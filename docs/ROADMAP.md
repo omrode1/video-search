@@ -23,7 +23,7 @@ Each milestone: pre-implementation quiz → decision gates → build on a branch
 - [x] Agree repo layout → D-LAYOUT option 2 (kickoff layout + `core/`, eval logic in package, lazy folders)
 - [x] `git init`, `.gitignore`, first commit on `main` (pushed)
 - [x] Environment + tooling → D-TOOLING, D-ENV (uv sync, ruff, mypy, pytest, pre-commit)
-- [ ] M0 pre-merge quiz → "approve merge"
+- [x] M0 pre-merge quiz (logged) → awaiting "approve merge"
 
 ## Open questions
 - Should a tiny eval set exist from M1 onward (rather than waiting for M5), so every milestone has a number to beat? (raise before M1)
