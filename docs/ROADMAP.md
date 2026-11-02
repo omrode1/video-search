@@ -17,7 +17,7 @@ Each milestone: pre-implementation quiz → decision gates → build on a branch
 - [x] Create `CLAUDE.md`, `docs/DECISIONS.md`, `docs/HLD.md`, `docs/LLD.md`, `docs/ROADMAP.md`, `docs/LEARNING.md`
 - [ ] M0 pre-implementation quiz
 - [x] D-0a target domain → CCTV primary, lectures added in M3
-- [ ] D-0b compute
+- [x] D-0b compute → laptop GPU only (RTX 3050 6 GB); cloud burst possible later
 - [ ] D-0c Python version + package manager
 - [ ] D-12 hardware budget
 - [ ] Agree repo layout
@@ -28,3 +28,4 @@ Each milestone: pre-implementation quiz → decision gates → build on a branch
 ## Open questions
 - Should a tiny eval set exist from M1 onward (rather than waiting for M5), so every milestone has a number to beat? (raise before M1)
 - Where do test/sample videos come from, and what are their licenses?
+- Is the `GDC-T4-12-50GB-953` cloud host available for this project? (relevant if D-0b is revisited)

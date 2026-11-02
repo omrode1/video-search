@@ -6,7 +6,7 @@ Every gated decision gets an entry. Statuses: `proposed` | `accepted` | `superse
 | ID | Title | Milestone | Status |
 |---|---|---|---|
 | D-0a | Target footage domain for v1 | M0 | accepted |
-| D-0b | Compute environment | M0 | open |
+| D-0b | Compute environment | M0 | accepted |
 | D-0c | Python version and package manager | M0 | open |
 | D-12 | Hardware budget / what compute is available | M0 | open |
 | D-LAYOUT | Repository layout | M0 | open |
@@ -23,6 +23,21 @@ Every gated decision gets an entry. Statuses: `proposed` | `accepted` | `superse
 | D-11 | Eval query set design and size | M5 | open |
 
 ---
+
+## D-0b: Compute environment
+- Date: 2026-11-02
+- Milestone: M0
+- Status: accepted
+- Context: Model sizes, captioning throughput and cost all depend on where compute runs. Hardware: RTX 3050 Laptop 6 GB VRAM, 15 GB RAM (~11 GB in use), 20 threads, 14 GB free disk.
+- Options considered:
+  1. Laptop GPU only — free, private, fast iteration, forces efficiency / VLMs limited to ~2–4B quantized, thermals, disk / low complexity, $0
+  2. Local dev + cloud GPU burst — larger VLMs possible / two environments, data sync, $ / medium complexity
+  3. Colab — free T4 / ephemeral, poor fit for repo + CLI workflow
+  4. CPU only — not viable for captioning
+- Claude's recommendation: Option 1, built so Option 2 can be added later (device + models in config, caches keyed by content hash so they can move between machines).
+- Decision (by me): Option 1 — laptop GPU only for now.
+- Rationale: Accepted the recommendation.
+- Consequences: Captioning VLM limited to small/quantized models (affects D-4); one big model loaded at a time. Code must not hardcode device or paths. Revisit if M3/M5 eval shows caption quality is the bottleneck. Open: is the `GDC-T4-12-50GB-953` host available for this project?
 
 ## D-0a: Target footage domain for v1
 - Date: 2026-11-02
