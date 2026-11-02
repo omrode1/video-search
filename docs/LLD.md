@@ -2,38 +2,43 @@
 
 Status: **draft for discussion** (from kickoff, 2026-11-02). Nothing here is accepted until it has a decision entry or the user confirms it.
 
-## 1. Repository layout (proposed — confirm in M0)
+## 1. Repository layout (accepted — D-LAYOUT)
 
 ```
 video-search/
-├── CLAUDE.md
-├── README.md
-├── pyproject.toml
+├── CLAUDE.md  README.md  pyproject.toml  uv.lock  .python-version
 ├── configs/
 │   ├── default.yaml
-│   └── ablations/          # one file per retriever configuration
-├── data/
-│   ├── raw/                # input videos (gitignored)
-│   └── cache/              # stage outputs (gitignored)
+│   └── ablations/            # one file per retriever configuration (M5)
+├── data/                     # gitignored; base path set in config (D-12)
+│   ├── raw/                  # input videos
+│   └── cache/                # stage outputs
 ├── src/vsearch/
-│   ├── ingest/             # video registration, hashing, metadata
-│   ├── segment/            # segmenters
-│   ├── sample/             # frame sampling, motion gating
-│   ├── embed/              # visual + text embedders
-│   ├── caption/            # VLM captioner
-│   ├── asr/                # Whisper wrapper
-│   ├── index/              # vector store + keyword index adapters
-│   ├── retrieve/           # retrievers, fusion, re-ranker
-│   ├── pipeline/           # orchestration + caching
-│   ├── api/                # HTTP API
-│   └── ui/                 # demo UI
+│   ├── core/                 # models.py, protocols.py, config.py — shared by all stages
+│   ├── ingest/               # M1: registration, hashing, metadata
+│   ├── sample/               # M1: fixed-rate sampling; M2: motion gating
+│   ├── embed/                # M1: visual embedder; M3: text embedder
+│   ├── index/                # M1: vector store adapter; M3: keyword index
+│   ├── retrieve/             # M1: single retriever; M4: fusion, merging, re-ranker
+│   ├── segment/              # M2
+│   ├── pipeline/             # M2: orchestration + caching
+│   ├── caption/              # M3
+│   ├── asr/                  # M3
+│   ├── eval/                 # M5 (or earlier): metrics + runner
+│   ├── api/                  # M6 (or when D-10 says)
+│   ├── ui/                   # M1: minimal demo UI
+│   └── cli.py
 ├── eval/
-│   ├── queries/            # query set with ground truth
-│   ├── run_eval.py
+│   ├── queries/              # query set with ground truth (data only)
 │   └── RESULTS.md
 ├── tests/
 └── docs/
 ```
+
+**Rules**
+- Folders are created only in the milestone that needs them (no empty scaffolding).
+- Dependency direction: stage packages import from `vsearch.core` only, never from each other. Orchestration (`pipeline/`, `cli.py`, `api/`, `ui/`) wires stages together.
+- Eval *logic* lives in `src/vsearch/eval/` (importable, testable); top-level `eval/` holds only data and results.
 
 ## 2. Core data models (draft)
 

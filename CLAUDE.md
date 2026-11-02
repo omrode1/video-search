@@ -3,9 +3,9 @@
 Natural-language video search: index long videos (CCTV, lectures, dashcam) so a text query returns timestamped segments. Combines visual embeddings, VLM captions, ASR transcripts, and keyword search, fused with RRF and optionally re-ranked. An eval harness backs every design choice with numbers.
 
 ## Current status
-- **Milestone:** M0 — Setup (no model code)
-- **Phase:** docs created; pre-implementation quiz pending; then decisions D-0a, D-0b, D-0c, D-12
-- **Git:** initialized on `main`; remote `origin` = `git@github.com:omrode1/video-search.git` (empty, nothing committed or pushed yet)
+- **Milestone:** M0 done (merged 2026-11-02). **Next: M1 — MVP search** (branch `m1-mvp-search`), starting with its pre-implementation quiz.
+- **Git:** `origin` = `git@github.com:omrode1/video-search.git`. Repo-local config: author `omrode1 <omrode.34@gmail.com>`, `core.sshCommand` uses `~/.ssh/id_ed25519_personal`. `.claude/` is gitignored. Merges into `main` use `--no-ff`.
+- **Teaching note:** M0 quizzes showed gaps on tool roles (uv / ruff / mypy / pytest / pre-commit). Revisit in the M1 pre-implementation quiz.
 
 ## Working rules (condensed)
 1. **Roles:** the user is the architect and decides; Claude is the engineer and teacher. Understanding matters more than speed.
@@ -36,8 +36,27 @@ Natural-language video search: index long videos (CCTV, lectures, dashcam) so a 
 - CPU: 20 threads; RAM: 15 GB
 - Python 3.12.3 system; `uv` 0.12.7 installed
 
+## Accepted decisions (summary; details in docs/DECISIONS.md)
+- D-0a: CCTV primary; 1–2 lecture videos added in M3
+- D-0b: laptop GPU only for now; device configurable
+- D-0c: uv + Python 3.12
+- D-12: ~40 GB disk, ≤5 GB VRAM one model at a time, ≤6 GB RAM, indexing ≤1 h per hour of CCTV
+- D-TOOLING: ruff + gradual mypy + pytest + pre-commit (ruff only)
+- D-ENV: ROS sourced on demand (alias), not in every shell
+- D-LAYOUT: kickoff layout + `src/vsearch/core/`; stages import only from `core`; eval logic in `src/vsearch/eval/`; folders created per milestone
+
 ## Conventions
-- TBD in M0 (package manager, layout, lint/format, test runner).
+- Package manager: **uv**, Python **3.12** (D-0c). Layout: see `docs/LLD.md` §1 (D-LAYOUT). Tooling (D-TOOLING): ruff (lint+format, line length 100), mypy (strict on `vsearch.core.*`, lenient elsewhere), pytest (markers: `gpu`, `slow`), pre-commit runs ruff only. Runtime deps are added only in the milestone that needs them. PyTorch comes from the `pytorch-cu130` index.
 
 ## How to run
-- Nothing to run yet.
+**Prerequisite (D-ENV):** use a shell where ROS is *not* sourced (`echo $PYTHONPATH` should be empty). ROS is loaded on demand with the `ros` alias.
+
+```bash
+uv sync                      # create/update .venv from uv.lock
+uv run pytest                # tests
+uv run ruff check --fix      # lint
+uv run ruff format           # format
+uv run mypy                  # type check (strict on vsearch.core)
+uv run pre-commit install    # once per clone; runs ruff on every commit
+```
+Before merging a branch: `uv run ruff check && uv run ruff format --check && uv run mypy && uv run pytest`.

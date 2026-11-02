@@ -1,1 +1,18 @@
+# Local Claude Code settings
 .claude/
+
+# Python
+.venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+
+# Tool caches
+.ruff_cache/
+.mypy_cache/
+.pytest_cache/
+
+# Data: videos and stage outputs (D-12; base path set in config)
+data/

@@ -4,8 +4,8 @@ Each milestone: pre-implementation quiz → decision gates → build on a branch
 
 | Milestone | Scope | Branch | Status |
 |---|---|---|---|
-| **M0 — Setup** | Docs + `CLAUDE.md`, git init, decide D-0a/D-0b/D-0c/D-12, agree repo layout, environment + tooling. No model code. | `m0-setup` | **in progress** |
-| M1 — MVP search | Fixed 1 FPS sampling, one image embedder, vector index (D-7), CLI search over one video, minimal UI that seeks to the timestamp. | `m1-mvp-search` | todo |
+| **M0 — Setup** | Docs + `CLAUDE.md`, git init, decide D-0a/D-0b/D-0c/D-12, agree repo layout, environment + tooling. No model code. | `m0-setup` | done (2026-11-02) |
+| M1 — MVP search | Fixed 1 FPS sampling, one image embedder, vector index (D-7), CLI search over one video, minimal UI that seeks to the timestamp. | `m1-mvp-search` | **next** |
 | M2 — Segmentation & motion gating | Segmenters, motion-gated sampling, segment pooling, caching layer. | `m2-segmentation` | todo |
 | M3 — Captions & transcripts | VLM captioner, Whisper, text embeddings, keyword index. | `m3-captions-asr` | todo |
 | M4 — Hybrid retrieval | Multiple retrievers, RRF, adjacent-segment merging, optional re-ranker. | `m4-hybrid` | todo |
@@ -16,15 +16,16 @@ Each milestone: pre-implementation quiz → decision gates → build on a branch
 ## M0 checklist
 - [x] Create `CLAUDE.md`, `docs/DECISIONS.md`, `docs/HLD.md`, `docs/LLD.md`, `docs/ROADMAP.md`, `docs/LEARNING.md`
 - [ ] M0 pre-implementation quiz
-- [ ] D-0a target domain
-- [ ] D-0b compute
-- [ ] D-0c Python version + package manager
-- [ ] D-12 hardware budget
-- [ ] Agree repo layout
-- [ ] `git init`, `.gitignore`, first commit on `main`
-- [ ] Environment + tooling (lint/format/test)
-- [ ] M0 pre-merge quiz → "approve merge"
+- [x] D-0a target domain → CCTV primary, lectures added in M3
+- [x] D-0b compute → laptop GPU only (RTX 3050 6 GB); cloud burst possible later
+- [x] D-0c → uv + Python 3.12
+- [x] D-12 → moderate: ~40 GB disk, ≤5 GB VRAM (one model at a time), ≤6 GB RAM, indexing ≤1 h per hour of CCTV, ~5–10 h footage
+- [x] Agree repo layout → D-LAYOUT option 2 (kickoff layout + `core/`, eval logic in package, lazy folders)
+- [x] `git init`, `.gitignore`, first commit on `main` (pushed)
+- [x] Environment + tooling → D-TOOLING, D-ENV (uv sync, ruff, mypy, pytest, pre-commit)
+- [x] M0 pre-merge quiz → "approve merge" given 2026-11-02
 
 ## Open questions
 - Should a tiny eval set exist from M1 onward (rather than waiting for M5), so every milestone has a number to beat? (raise before M1)
 - Where do test/sample videos come from, and what are their licenses?
+- Is the `GDC-T4-12-50GB-953` cloud host available for this project? (relevant if D-0b is revisited)

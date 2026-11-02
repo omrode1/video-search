@@ -1,0 +1,77 @@
+[project]
+name = "vsearch"
+version = "0.0.1"
+description = "Natural-language search over long videos (CCTV, lectures)."
+readme = "README.md"
+requires-python = ">=3.12,<3.13"
+# Model/runtime deps are added in the milestone that needs them (D-12 disk budget).
+dependencies = []
+
+[dependency-groups]
+dev = [
+    "ruff",
+    "mypy",
+    "pytest",
+    "pre-commit",
+]
+
+[build-system]
+requires = ["uv_build>=0.12,<0.13"]
+build-backend = "uv_build"
+
+# ---------------------------------------------------------------- PyTorch (D-0b, D-0c)
+# CUDA 13.0 wheels; driver supports CUDA 13.1. `explicit = true` means only packages
+# pinned to this index in [tool.uv.sources] come from it; everything else uses PyPI.
+# When torch is added (M1), add:  [tool.uv.sources] torch = { index = "pytorch-cu130" }
+[[tool.uv.index]]
+name = "pytorch-cu130"
+url = "https://download.pytorch.org/whl/cu130"
+explicit = true
+
+# ---------------------------------------------------------------- Ruff (D-TOOLING A1)
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+src = ["src", "tests"]
+# docs/ holds design sketches, not runnable code
+extend-exclude = ["docs"]
+
+[tool.ruff.lint]
+select = [
+    "E", "W",  # pycodestyle
+    "F",       # pyflakes: unused imports, undefined names
+    "I",       # import sorting
+    "B",       # bugbear: likely bugs (mutable defaults, etc.)
+    "UP",      # pyupgrade: modern syntax
+    "SIM",     # simplifications
+    "NPY",     # numpy-specific checks
+]
+
+# ---------------------------------------------------------------- mypy (D-TOOLING B1)
+# Lenient by default; strict on vsearch.core (shared models/protocols) and pure-logic modules.
+[tool.mypy]
+python_version = "3.12"
+files = ["src", "tests"]
+check_untyped_defs = true
+warn_unused_ignores = true
+warn_redundant_casts = true
+no_implicit_optional = true
+# ML libraries have patchy stubs; don't fail on them.
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+# Add pure-logic modules here as they appear (e.g. "vsearch.retrieve.fusion", "vsearch.eval.metrics").
+module = ["vsearch.core.*"]
+disallow_untyped_defs = true
+disallow_incomplete_defs = true
+disallow_any_generics = true
+warn_return_any = true
+
+# ---------------------------------------------------------------- pytest (D-TOOLING C1)
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra --strict-markers"
+markers = [
+    "gpu: needs a CUDA GPU",
+    "slow: takes more than a few seconds (model loading, real video)",
+]
