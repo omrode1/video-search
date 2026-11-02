@@ -9,7 +9,7 @@ Every gated decision gets an entry. Statuses: `proposed` | `accepted` | `superse
 | D-0b | Compute environment | M0 | accepted |
 | D-0c | Python version and package manager | M0 | accepted |
 | D-12 | Hardware budget / what compute is available | M0 | accepted |
-| D-LAYOUT | Repository layout | M0 | open |
+| D-LAYOUT | Repository layout | M0 | accepted |
 | D-1 | Segmentation strategy | M2 | open |
 | D-2 | Sampling rate and motion threshold | M1/M2 | open |
 | D-3 | Visual embedding model, size, pooling | M1 | open |
@@ -23,6 +23,20 @@ Every gated decision gets an entry. Statuses: `proposed` | `accepted` | `superse
 | D-11 | Eval query set design and size | M5 | open |
 
 ---
+
+## D-LAYOUT: Repository layout
+- Date: 2026-11-02
+- Milestone: M0
+- Status: accepted
+- Context: Layout fixes module boundaries and import direction; moving things later touches imports, tests and docs. Kickoff layout had no home for shared data models/protocols and kept eval logic outside the package.
+- Options considered:
+  1. Kickoff layout as-is — documented, obvious stages / no home for shared types, eval not importable, 11 empty dirs
+  2. Kickoff layout + `core/` (models, protocols, config) + eval logic in `src/vsearch/eval/` (top-level `eval/` holds only queries + RESULTS.md) + create folders lazily per milestone
+  3. Flat modules first — fewest files / later split churn, blurry boundaries hurt swappability
+- Claude's recommendation: Option 2.
+- Decision (by me): Option 2.
+- Rationale: Accepted the recommendation.
+- Consequences: Dependency rule: stage packages import from `vsearch.core`, never from each other; orchestration (`pipeline/`, `cli.py`, `api/`) wires stages together. Folders appear only when a milestone needs them. Reversal after M1 is a mechanical import refactor.
 
 ## D-12: Hardware budget
 - Date: 2026-11-02

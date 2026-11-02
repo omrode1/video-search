@@ -41,9 +41,10 @@ Natural-language video search: index long videos (CCTV, lectures, dashcam) so a 
 - D-0b: laptop GPU only for now; device configurable
 - D-0c: uv + Python 3.12
 - D-12: ~40 GB disk, ≤5 GB VRAM one model at a time, ≤6 GB RAM, indexing ≤1 h per hour of CCTV
+- D-LAYOUT: kickoff layout + `src/vsearch/core/`; stages import only from `core`; eval logic in `src/vsearch/eval/`; folders created per milestone
 
 ## Conventions
-- Package manager: **uv**, Python **3.12** (D-0c). Layout, lint/format, test runner: TBD in M0.
+- Package manager: **uv**, Python **3.12** (D-0c). Layout: see `docs/LLD.md` §1 (D-LAYOUT). Lint/format, test runner: TBD in M0.
 
 ## How to run
 - Nothing to run yet.
