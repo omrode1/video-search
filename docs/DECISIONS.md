@@ -10,6 +10,7 @@ Every gated decision gets an entry. Statuses: `proposed` | `accepted` | `superse
 | D-0c | Python version and package manager | M0 | accepted |
 | D-12 | Hardware budget / what compute is available | M0 | accepted |
 | D-LAYOUT | Repository layout | M0 | accepted |
+| D-TOOLING | Lint/format, type checking, tests | M0 | accepted |
 | D-1 | Segmentation strategy | M2 | open |
 | D-2 | Sampling rate and motion threshold | M1/M2 | open |
 | D-3 | Visual embedding model, size, pooling | M1 | open |
@@ -23,6 +24,20 @@ Every gated decision gets an entry. Statuses: `proposed` | `accepted` | `superse
 | D-11 | Eval query set design and size | M5 | open |
 
 ---
+
+## D-TOOLING: Lint/format, type checking, tests
+- Date: 2026-11-02
+- Milestone: M0
+- Status: accepted
+- Context: Need consistent style, early detection of interface mismatches (esp. around `core/`), and a test runner before any code exists.
+- Options considered:
+  - A. Lint/format: (1) Ruff for both; (2) black + flake8 + isort
+  - B. Types: (1) mypy, strict on `core/` + pure logic, lenient on model wrappers; (2) pyright; (3) none
+  - C. Tests/automation: (1) pytest + pre-commit running ruff only; (2) pytest only; (3) pytest + GitHub Actions CI
+- Claude's recommendation: A1 + B1 + C1.
+- Decision (by me): A1, B1, C1.
+- Rationale: Accepted the recommendation.
+- Consequences: Ruff + mypy + pytest + pre-commit are dev dependencies. Pre-commit runs only fast checks (ruff lint + format); mypy and pytest run manually / before merge. CI deferred (GPU tests can't run on free CI). All config lives in `pyproject.toml`; each piece is cheap to swap.
 
 ## D-LAYOUT: Repository layout
 - Date: 2026-11-02
