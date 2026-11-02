@@ -18,7 +18,7 @@ Each milestone: pre-implementation quiz → decision gates → build on a branch
 - [ ] M0 pre-implementation quiz
 - [x] D-0a target domain → CCTV primary, lectures added in M3
 - [x] D-0b compute → laptop GPU only (RTX 3050 6 GB); cloud burst possible later
-- [ ] D-0c Python version + package manager
+- [x] D-0c → uv + Python 3.12
 - [ ] D-12 hardware budget
 - [ ] Agree repo layout
 - [x] `git init`, `.gitignore`, first commit on `main` (pushed)

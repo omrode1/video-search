@@ -7,7 +7,7 @@ Every gated decision gets an entry. Statuses: `proposed` | `accepted` | `superse
 |---|---|---|---|
 | D-0a | Target footage domain for v1 | M0 | accepted |
 | D-0b | Compute environment | M0 | accepted |
-| D-0c | Python version and package manager | M0 | open |
+| D-0c | Python version and package manager | M0 | accepted |
 | D-12 | Hardware budget / what compute is available | M0 | open |
 | D-LAYOUT | Repository layout | M0 | open |
 | D-1 | Segmentation strategy | M2 | open |
@@ -23,6 +23,21 @@ Every gated decision gets an entry. Statuses: `proposed` | `accepted` | `superse
 | D-11 | Eval query set design and size | M5 | open |
 
 ---
+
+## D-0c: Python version and package manager
+- Date: 2026-11-02
+- Milestone: M0
+- Status: accepted
+- Context: Reproducibility (pinned deps, quiz Q5) needs a lockfile; GPU libraries need a Python version with prebuilt wheels. Machine has Python 3.12.3, uv 0.12.7, ffmpeg 6.1.1, driver supporting CUDA 13.1.
+- Options considered:
+  1. uv + Python 3.12 — installed, fast, `uv.lock`, `.python-version`, PyTorch CUDA index configurable in pyproject / newer tool / low complexity
+  2. Poetry + 3.12 — mature / slower, struggles with PyTorch CUDA builds / medium
+  3. pip + venv + requirements.txt — familiar / no real lockfile, version drift / weak reproducibility
+  4. conda / pixi — handles non-Python deps / heavy, conda+pip mixing issues / unneeded here
+- Claude's recommendation: uv + Python 3.12.
+- Decision (by me): Option 1 — uv + Python 3.12.
+- Rationale: Accepted the recommendation.
+- Consequences: `pyproject.toml` + `uv.lock` + `.python-version` committed; PyTorch CUDA index pinned in pyproject. Reversible: pyproject is standard (pip/Poetry can read it); only the lockfile would be regenerated.
 
 ## D-0b: Compute environment
 - Date: 2026-11-02

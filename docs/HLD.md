@@ -58,5 +58,5 @@ Status: **proposed** (from kickoff, 2026-11-02). Items marked **[D-x]** are open
 ## 5. Project-level decisions (M0)
 - **[D-0a] ✅** Target domain: **CCTV primary; 1–2 lecture videos added in M3** for speech queries.
 - **[D-0b] ✅** Compute: **laptop GPU only** (RTX 3050 6 GB) for now; device configurable so a cloud GPU can be added later.
-- **[D-0c]** Python version and package manager.
+- **[D-0c] ✅** **uv + Python 3.12** (`uv.lock`, `.python-version`).
 - **[D-12]** Hardware budget.

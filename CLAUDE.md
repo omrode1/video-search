@@ -37,7 +37,7 @@ Natural-language video search: index long videos (CCTV, lectures, dashcam) so a 
 - Python 3.12.3 system; `uv` 0.12.7 installed
 
 ## Conventions
-- TBD in M0 (package manager, layout, lint/format, test runner).
+- Package manager: **uv**, Python **3.12** (D-0c). Layout, lint/format, test runner: TBD in M0.
 
 ## How to run
 - Nothing to run yet.
