@@ -40,3 +40,8 @@ Concepts to revisit:
 - Eval as a comparison tool, not only a regression guard
 - Throughput: generative (token-by-token) vs single-pass embedding models; frames sampled vs frames in the file
 - Reproducibility: recording config and library versions with every result
+
+### Follow-up experiment (2026-11-02): stale cache + hashing cost
+Script: throwaway, not in the repo.
+- **Stale cache:** with key `(hash, stage, model)`, switching 1 FPS → 0.5 FPS gave a cache HIT that returned 10 frames instead of 5, with no error. Adding `config_hash` to the key turned it into a MISS that returned the correct 5.
+- **Hashing a 4 GB file:** full SHA-256 took 4.22 s (~0.95 GB/s, file already in RAM, so this is CPU-bound). Partial hash (size + first/last 4 MB) took 0.01 s. Takeaway: a 40 GB file needs ≥40 s even when it's already in RAM, and longer from a cold disk. Partial hashing is fast but can, rarely, treat two different files as the same; that tradeoff gets decided when we build ingest in M1.
