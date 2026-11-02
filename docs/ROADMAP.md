@@ -21,7 +21,7 @@ Each milestone: pre-implementation quiz → decision gates → build on a branch
 - [ ] D-0c Python version + package manager
 - [ ] D-12 hardware budget
 - [ ] Agree repo layout
-- [ ] `git init`, `.gitignore`, first commit on `main`
+- [x] `git init`, `.gitignore`, first commit on `main` (pushed)
 - [ ] Environment + tooling (lint/format/test)
 - [ ] M0 pre-merge quiz → "approve merge"
 

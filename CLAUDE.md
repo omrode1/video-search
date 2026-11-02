@@ -5,7 +5,7 @@ Natural-language video search: index long videos (CCTV, lectures, dashcam) so a 
 ## Current status
 - **Milestone:** M0 — Setup (no model code)
 - **Phase:** docs created; pre-implementation quiz pending; then decisions D-0a, D-0b, D-0c, D-12
-- **Git:** initialized on `main`; remote `origin` = `git@github.com:omrode1/video-search.git` (empty, nothing committed or pushed yet)
+- **Git:** `main` pushed to `origin` (`git@github.com:omrode1/video-search.git`). Repo-local config: author `omrode1 <omrode.34@gmail.com>`, `core.sshCommand` uses `~/.ssh/id_ed25519_personal`. `.claude/` is gitignored. Working branch: `m0-setup`.
 
 ## Working rules (condensed)
 1. **Roles:** the user is the architect and decides; Claude is the engineer and teacher. Understanding matters more than speed.
